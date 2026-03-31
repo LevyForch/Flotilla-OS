@@ -114,6 +114,7 @@ export function fleetReducer(state, action) {
         const tickSeed = action.payload.tick + i
         const moveChance = (tickSeed % 3) !== 0 // most ticks move
         const statusChance = (tickSeed % 47) === 0 // rare status change
+        // 75% chance of ok, 25% chance of arrived (status normalizes over time in demo)
         const newStatus = statusChance
           ? ['ok', 'ok', 'ok', 'arrived'][tickSeed % 4]
           : b.status

@@ -10,8 +10,11 @@ const statusIcons = {
   fuel_issue: '⚠️',
 }
 
+const SELECTED_RING_STYLE = 'box-shadow: 0 0 0 3px white, 0 0 0 5px {color};'
+const BASE_SHADOW = 'box-shadow: 0 2px 6px rgba(0,0,0,0.35);'
+
 function makeIcon(color, status, isSelected) {
-  const ring = isSelected ? `box-shadow: 0 0 0 3px white, 0 0 0 5px ${color};` : ''
+  const ringStyle = isSelected ? SELECTED_RING_STYLE.replace('{color}', color) : BASE_SHADOW
   const html = `
     <div style="
       width: 32px; height: 32px;
@@ -20,8 +23,7 @@ function makeIcon(color, status, isSelected) {
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 14px;
-      ${ring}
-      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      ${ringStyle}
     ">${statusIcons[status] || '🟢'}</div>
   `
   return divIcon({ html, className: '', iconSize: [32, 32], iconAnchor: [16, 16] })

@@ -50,7 +50,7 @@ export function buildDemoMessages(boats) {
   return [
     { id: genId('msg'), boatId: boats[0].id, sender: boats[0].name, text: 'Morning! All good here 🌊', createdAt: new Date(now - 14 * 60000).toISOString() },
     { id: genId('msg'), boatId: boats[2].id, sender: boats[2].name, text: 'Visibility is great, following the plan', createdAt: new Date(now - 10 * 60000).toISOString() },
-    { id: genId('msg'), boatId: boats[5].id, sender: boats[5].name, text: 'ENGINE ISSUE – please advise! 🆘', createdAt: new Date(now - 6 * 60000).toISOString(), isSystem: true },
+    { id: genId('msg'), boatId: boats[5].id, sender: 'System', text: `${boats[5].name} reported an ENGINE ISSUE 🆘`, createdAt: new Date(now - 6 * 60000).toISOString(), isSystem: true },
     { id: genId('msg'), boatId: 'coordinator', sender: 'Coordinator', text: 'Tide Runner, heading your way. ETA 12 min.', createdAt: new Date(now - 4 * 60000).toISOString() },
     { id: genId('msg'), boatId: boats[3].id, sender: boats[3].name, text: 'Arrived at meetup ⚓', createdAt: new Date(now - 2 * 60000).toISOString() },
   ]
