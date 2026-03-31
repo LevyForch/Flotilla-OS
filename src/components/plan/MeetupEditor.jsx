@@ -1,9 +1,10 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { FleetContext } from '../../App.jsx'
 import { ACTIONS } from '../../lib/fleetReducer.js'
 import { Button } from '../common/Button.jsx'
 import { isValidLat, isValidLng } from '../../lib/geo.js'
-import { MapPin } from 'lucide-react'
+import { useGeocode } from '../../hooks/useGeocode.js'
+import { MapPin, Loader2 } from 'lucide-react'
 
 export function MeetupEditor() {
   const { state, dispatch } = useContext(FleetContext)
@@ -11,6 +12,22 @@ export function MeetupEditor() {
   const [form, setForm] = useState({ ...meetup })
   const [errors, setErrors] = useState({})
   const [saved, setSaved] = useState(false)
+  const { suggestions, loading, lookup, clear } = useGeocode()
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const wrapperRef = useRef(null)
+
+  function handleNameChange(e) {
+    const val = e.target.value
+    setForm(f => ({ ...f, name: val }))
+    lookup(val)
+    setShowSuggestions(true)
+  }
+
+  function pickSuggestion(s) {
+    setForm(f => ({ ...f, name: s.name, lat: s.lat, lng: s.lng }))
+    setShowSuggestions(false)
+    clear()
+  }
 
   function validate() {
     const errs = {}
@@ -50,7 +67,36 @@ export function MeetupEditor() {
 
   return (
     <div className="space-y-3">
-      {field('name', 'Location Name', 'e.g. Moss Landing Marina')}
+      {/* Location name with geocode autocomplete */}
+      <div className="relative" ref={wrapperRef}>
+        <label className="block text-xs font-semibold text-gray-700 mb-1">Location Name</label>
+        <div className="relative">
+          <input
+            value={form.name ?? ''}
+            onChange={handleNameChange}
+            onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            placeholder="e.g. Moss Landing Marina"
+            className="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ocean-400 pr-8"
+          />
+          {loading && <Loader2 className="w-4 h-4 text-gray-400 animate-spin absolute right-2.5 top-2.5" />}
+        </div>
+        {errors.name && <p className="text-xs text-red-500 mt-0.5">{errors.name}</p>}
+        {showSuggestions && suggestions.length > 0 && (
+          <ul className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+            {suggestions.map((s, i) => (
+              <li
+                key={i}
+                onMouseDown={() => pickSuggestion(s)}
+                className="px-3 py-2 text-sm cursor-pointer hover:bg-ocean-50 border-b border-gray-100 last:border-0"
+              >
+                <p className="text-gray-800 truncate">{s.name}</p>
+                <p className="text-xs text-gray-400">{s.lat.toFixed(4)}, {s.lng.toFixed(4)}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <div className="grid grid-cols-2 gap-3">
         {field('lat', 'Latitude', '36.8046')}
         {field('lng', 'Longitude', '-121.787')}
