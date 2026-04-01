@@ -14,7 +14,7 @@ const links = [
 export function BottomNav() {
   return (
     <nav
-      className="bg-navy-900 border-t border-navy-800 flex justify-around items-center h-14 pb-safe flex-shrink-0"
+      className="glass-nav border-t border-white/10 flex justify-around items-center h-16 pb-safe flex-shrink-0 shadow-nav"
       aria-label="Main navigation"
     >
       {links.map(({ to, label, Icon }) => (
@@ -24,18 +24,23 @@ export function BottomNav() {
           end={to === '/'}
           className={({ isActive }) =>
             clsx(
-              'flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-[10px] font-medium min-w-[44px] min-h-[44px] justify-center transition-colors',
+              'flex flex-col items-center gap-1 px-3 py-1.5 rounded-2xl text-[10px] font-medium min-w-[48px] min-h-[44px] justify-center transition-all duration-300',
               isActive
-                ? 'text-ocean-400'
-                : 'text-navy-300 hover:text-white'
+                ? 'text-ocean-400 nav-active-pill'
+                : 'text-navy-400 hover:text-white'
             )
           }
           aria-label={label}
         >
           {({ isActive }) => (
             <>
-              <Icon className={clsx('w-5 h-5', isActive ? 'text-ocean-400' : '')} aria-hidden="true" />
-              <span>{label}</span>
+              <div className={clsx(
+                'p-1 rounded-xl transition-all duration-300',
+                isActive && 'bg-ocean-500/15'
+              )}>
+                <Icon className={clsx('w-5 h-5 transition-colors', isActive ? 'text-ocean-400' : '')} aria-hidden="true" />
+              </div>
+              <span className={clsx(isActive && 'font-semibold')}>{label}</span>
             </>
           )}
         </NavLink>

@@ -59,3 +59,85 @@ html, body, #root {
   background: #cbd5e1;
   border-radius: 2px;
 }
+
+/* === Savvy Navvy-inspired utilities === */
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.glass-dark {
+  background: rgba(13, 21, 56, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.glass-nav {
+  background: rgba(13, 21, 56, 0.92);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+}
+
+/* Gradient backgrounds */
+.bg-ocean-gradient {
+  background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 50%, #0ea5e9 100%);
+}
+
+.bg-navy-gradient {
+  background: linear-gradient(180deg, #080d24 0%, #14204f 100%);
+}
+
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #082f49 0%, #0c4a6e 30%, #0369a1 70%, #0284c7 100%);
+}
+
+.bg-page-gradient {
+  background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 40%, #f1f5f9 100%);
+}
+
+.bg-alert-gradient {
+  background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+}
+
+/* Gradient text */
+.text-gradient-ocean {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card refinements */
+.card-refined {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-refined:hover {
+  transform: translateY(-1px);
+}
+
+/* Active nav indicator */
+.nav-active-pill {
+  position: relative;
+}
+.nav-active-pill::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+/* Smooth page transitions */
+.page-enter {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}

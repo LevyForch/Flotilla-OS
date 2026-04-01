@@ -17,7 +17,7 @@ function FitBoundsButton({ boats }) {
   return (
     <button
       onClick={fitAll}
-      className="absolute top-2 right-2 z-[1000] bg-white rounded-xl shadow-card p-2 text-navy-800 hover:bg-ocean-50 transition-colors"
+      className="absolute top-3 right-3 z-[1000] glass rounded-xl shadow-glass p-2.5 text-navy-800 hover:bg-white/90 transition-all active:scale-95"
       aria-label="Fit all boats in view"
       title="Where is everyone?"
     >
@@ -65,7 +65,7 @@ export function FleetMap({ compact = false }) {
       <MapContainer
         center={center}
         zoom={compact ? 11 : 12}
-        className="h-full w-full rounded-xl"
+        className="h-full w-full"
         zoomControl={!compact}
         attributionControl={!compact}
       >

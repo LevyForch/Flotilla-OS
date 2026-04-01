@@ -14,16 +14,18 @@ export function SharedPlanPanel() {
     <div className="space-y-4">
       {/* Current plan summary */}
       {meetupPoint?.name && (
-        <div className="bg-ocean-600 text-white rounded-2xl p-4">
-          <div className="flex items-center gap-2 mb-1">
-            <Anchor className="w-5 h-5" aria-hidden="true" />
-            <span className="font-bold">Today's Meetup</span>
+        <div className="bg-ocean-gradient text-white rounded-2xl p-5 shadow-card-lg">
+          <div className="flex items-center gap-2 mb-1.5">
+            <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
+              <Anchor className="w-4 h-4" aria-hidden="true" />
+            </div>
+            <span className="font-bold text-sm">Today's Meetup</span>
           </div>
-          <p className="text-lg font-bold">{meetupPoint.name}</p>
+          <p className="text-xl font-bold tracking-tight">{meetupPoint.name}</p>
           {meetupPoint.etaWindow && (
-            <p className="text-sm text-ocean-200 mt-0.5">⏱ {meetupPoint.etaWindow}</p>
+            <p className="text-sm text-ocean-200 mt-1">⏱ {meetupPoint.etaWindow}</p>
           )}
-          <p className="text-xs text-ocean-300 mt-1">
+          <p className="text-xs text-white/50 mt-1.5">
             {meetupPoint.lat?.toFixed(4)}°, {meetupPoint.lng?.toFixed(4)}°
           </p>
         </div>
